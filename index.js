@@ -61,7 +61,7 @@ try{
         const result = await userCollection.updateOne(filter, updateDoc);
         res.send(result)
     })
-    
+
     app.get('/admin/:email', async(req, res)=>{
         const email = req.params.email;
         const user = await userCollection.findOne({email: email})
@@ -72,10 +72,12 @@ try{
         const result = await userCollection.find().toArray();
         res.send(result)
     })
+
     app.get('/user',/* verifyJWT, */ async(req, res)=>{
         const result = await userCollection.find().toArray();
         res.send(result)
     })
+
     app.delete('/user/:email', async(req, res)=>{
         const email = req.params.email;
         const filter = {email: email};
@@ -87,12 +89,14 @@ try{
         const products = await productsCollection.find(query).toArray();
         res.send(products)
     });
+
     app.get('/products/:id', async(req, res)=>{
         const id = req.params.id;
         const query = {_id: ObjectId(id)};
         const product = await productsCollection.find(query)
         res.send(product)
     })
+    
     app.post('/place-order', async (req, res) => {
         const user = req.body;
         const result = await placeOrderCollection.insertOne(user);
