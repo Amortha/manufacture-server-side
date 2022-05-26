@@ -11,13 +11,13 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send('Hello from bike manufaxering')
 });
-
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.q3lvh.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 function verifyJWT(req, res, next){
     const authHeader = req.headers.authorization;
     if (!authHeader) {
+
         return res.status(401).send({ message: 'unauthorized' })
     }
     const token = authHeader.split(' ')[1];
@@ -38,8 +38,6 @@ try{
     const placeOrderCollection = client.db('bike_parts').collection('place_orders');
     const userCollection = client.db('bike_parts').collection('users');
     const reviewCollection = client.db('bike_parts').collection('review');
-
-
 
     app.put('/user/:email', async(req, res)=>{
         const email = req.params.email;
