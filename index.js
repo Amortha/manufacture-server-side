@@ -96,38 +96,32 @@ try{
         const product = await productsCollection.find(query)
         res.send(product)
     })
-
     app.post('/place-order', async (req, res) => {
         const user = req.body;
         const result = await placeOrderCollection.insertOne(user);
         res.send(result)
     })
-
     app.get('/place-order', verifyJWT, async(req, res)=>{
         const email = req.query.email;
         const query = {email: email};
         const  order = await placeOrderCollection.find(query).toArray();
         res.send(order)
     });
-
     app.post('/review', async(req, res)=>{
         const review = req.body;
         const result = await reviewCollection.insertOne(review);
         res.send(result)
     })
-
     app.get('/review', async(req, res)=>{
         const result = await reviewCollection.find().toArray();
         res.send(result)
     })
 }
-
 finally{
     /* await client.close(); */
 }
 }
 run().catch(console.dir)
-
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`)
