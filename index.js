@@ -23,7 +23,7 @@ function verifyJWT(req, res, next){
     const token = authHeader.split(' ')[1];
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function (err, decoded) {
        if (err) {
-            return res.status(403).send({ message: 'forbidden' })
+            return res.status(403).send({ message:'forbidden'})
         }
         req.decoded = decoded;
         next();
@@ -118,8 +118,6 @@ finally{
 }
 }
 run().catch(console.dir)
-
-
 
 
 app.listen(port, () => {
